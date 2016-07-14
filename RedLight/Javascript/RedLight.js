@@ -1,7 +1,9 @@
 //red light game parts...
 // three main objects: the car, the road, the game logic...
 
-var car = function(finalspeed, direction, acceleration) {
+var RLG = RLG || {}; 
+
+RLG.car = function(finalspeed, direction, acceleration) {
     this.finalSpeed = finalspeed;
     this.direction = direction;
     this.acceleration = acceleration;
@@ -19,4 +21,3 @@ var car = function(finalspeed, direction, acceleration) {
 // var game = {
 
 // }
-
