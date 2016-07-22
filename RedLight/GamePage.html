@@ -2,12 +2,45 @@
 <html>
     <head>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 >>>>>>> refs/remotes/origin/master
         <script src="Javascript/RedLight.js" />
+=======
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="Javascript/phaser.js" ></script>
+        <script src="Javascript/RedLight.js" ></script>
+        <link href="Content/RedLightGame.css" rel="stylesheet" media="all"/>
+>>>>>>> refs/remotes/origin/master
     </head>
     <body>
-        <canvas height="800" width="800" />
+        <div id="RedLightGame"></div>
     </body>
+
+    <script>
+        (function () {
+            var RLG = RLG || {};
+            var game = new Phaser.Game(800, 600, Phaser.AUTO, 'RedLightGame', { 
+                preload: preload, 
+                create: create,
+                update: update
+             });
+            
+            function preload() {
+                // preload images for game.
+                // will be done through the mechanics of RLG object
+            }
+
+            function create() {
+                game.scale.setGameSize(window.innerWidth, window.innerHeight);
+                game.scale.forceOrientation(false, true);
+                debugger;
+            }
+
+            function update() {
+
+            }
+        })();
+    </script>
 </html>
