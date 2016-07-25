@@ -6,7 +6,7 @@ var RLG = RLG || {};
 RLG.car = function(name, topSpeed, acceleration) {
     this.name = name;
     this.topSpeed = topSpeed;
-    this.acceleration = acceleration;
+    this.acceleration = acceleration; 
 
     this.currentSpeed = null;
     this.isAccelerating = false;
@@ -80,8 +80,10 @@ RLG.mechanics = {
         this.initializeTouch(game, context);
         var carJSON = game.cache.getJSON('cars');
 
-        for(var c = 0; c < carJSON.Cars; ++c) {
+        for(var c = 0; c < carJSON.Cars.length; ++c) {
             debugger;
+            var temp = carJSON.Cars[c];
+            this.cars.push(new RLG.car(temp.name, temp.topSpeed, temp.acceleration));
         }
     },
 
