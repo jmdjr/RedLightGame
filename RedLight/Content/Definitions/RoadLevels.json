@@ -1,3 +1,13 @@
 {
-    "Roads": []
+    "Roads": [
+        {
+            "length": 100,
+            "speedLimit": 60,
+            "times": {
+                "red": 0,
+                "yellow": 0,
+                "green": 1
+            }
+        }
+    ]
 }

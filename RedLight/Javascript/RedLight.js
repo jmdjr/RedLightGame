@@ -51,13 +51,11 @@ RLG.signal = function(redTime, yellowTime, greenTime) {
     }
 }
 
-RLG.road = function(length, limit, times) {
+RLG.road = function(length, speedLimit, times) {
     this.length = length;
-    this.speedLimit = limit;
+    this.speedLimit = speedLimit;
     this.signal = new RLG.signal(times.red, times.yellow, times.green);
-
-    this.name = "road";
-    
+    this.name = "Road";
 }
 
 // game mechanics
@@ -78,16 +76,21 @@ RLG.mechanics = {
 
     initialize: function(game, context) {
         this.initializeTouch(game, context);
-        var carJSON = game.cache.getJSON('cars');
+        var JSON = game.cache.getJSON('cars');
 
-        for(var c = 0; c < carJSON.Cars.length; ++c) {
-            debugger;
-            var temp = carJSON.Cars[c];
+        for(var c = 0; c < JSON.Cars.length; ++c) {
+            var temp = JSON.Cars[c];
+            this.cars.push(new RLG.car(temp.name, temp.topSpeed, temp.acceleration));
+        }
+
+        JSON = game.cache.getJSON('roads');
+        for(var c = 0; c < JSON.Roads.length; ++c) {
+            var temp = JSON.Roads[c];
             this.cars.push(new RLG.car(temp.name, temp.topSpeed, temp.acceleration));
         }
 
         var test = game.add.sprite(64, 64, 'assets');
-        test.frameName = this.cars[0].name;
+        test.frameName = this.roads[0].name;
     },
 
     initializeTouch: function(game, context) {
