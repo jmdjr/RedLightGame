@@ -86,7 +86,7 @@ RLG.mechanics = {
         JSON = game.cache.getJSON('roads');
         for(var c = 0; c < JSON.Roads.length; ++c) {
             var temp = JSON.Roads[c];
-            this.cars.push(new RLG.car(temp.name, temp.topSpeed, temp.acceleration));
+            this.roads.push(new RLG.road(temp.length, temp.speedLimit, temp.times));
         }
 
         var test = game.add.sprite(64, 64, 'assets');
