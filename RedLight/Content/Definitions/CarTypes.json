@@ -1,0 +1,9 @@
+{
+    "Cars": [
+        {
+            "name": "Red",
+            "topSpeed": 99,
+            "acceleration": 1
+        }
+    ]
+}

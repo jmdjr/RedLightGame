@@ -12,7 +12,6 @@
 
     <script>
         (function () {
-            var RLG = RLG || {};
             var game = new Phaser.Game(800, 600, Phaser.AUTO, 'RedLightGame', { 
                 preload: preload, 
                 create: create,
@@ -22,16 +21,17 @@
             function preload() {
                 // preload images for game.
                 // will be done through the mechanics of RLG object
+                window.RLG.mechanics.preload(game, this);
             }
 
             function create() {
                 game.scale.setGameSize(window.innerWidth, window.innerHeight);
                 game.scale.forceOrientation(false, true);
-                debugger;
+                window.RLG.mechanics.initialize(game, this);
             }
 
             function update() {
-
+                window.RLG.mechanics.update(game, this);
             }
         })();
     </script>
