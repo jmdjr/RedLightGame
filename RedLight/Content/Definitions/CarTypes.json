@@ -2,7 +2,7 @@
     "Cars": [
         {
             "name": "RedCar",
-            "TopSpeed": 60,
+            "topSpeed": 60,
             "acceleration": 1 
         }
     ]
