@@ -85,6 +85,9 @@ RLG.mechanics = {
             var temp = carJSON.Cars[c];
             this.cars.push(new RLG.car(temp.name, temp.topSpeed, temp.acceleration));
         }
+
+        var test = game.add.sprite(64, 64, 'assets');
+        test.frameName = this.cars[0].name;
     },
 
     initializeTouch: function(game, context) {
