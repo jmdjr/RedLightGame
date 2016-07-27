@@ -12,7 +12,9 @@
 
     <script>
         (function () {
-            var game = new Phaser.Game(800, 600, Phaser.AUTO, 'RedLightGame', { 
+            //var w = window.innerWidth * window.devicePixelRatio, h = window.innerHeight * window.devicePixelRatio;
+            var w = 1024, h = 2040;           
+            var game = new Phaser.Game(w, h, Phaser.AUTO, 'RedLightGame', { 
                 preload: preload, 
                 create: create,
                 update: update
@@ -21,14 +23,14 @@
             function preload() {
                 // preload images for game.
                 // will be done through the mechanics of RLG object
+                game.scale.forceOrientation(false, true);
                 window.RLG.mechanics.preload(game, this);
             }
 
             function create() {
-                game.scale.setGameSize(window.innerWidth, window.innerHeight);
-                game.scale.forceOrientation(false, true);
+//                game.scale.setGameSize(window.innerWidth, window.innerHeight);
                 window.RLG.mechanics.initialize(game, this);
-            }
+            }  
 
             function update() {
                 window.RLG.mechanics.update(game, this);

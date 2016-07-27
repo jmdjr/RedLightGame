@@ -7,7 +7,7 @@ RLG.car = function(name, topSpeed, acceleration) {
     this.name = name;
     this.topSpeed = topSpeed;
     this.acceleration = acceleration; 
-
+  
     this.currentSpeed = null;
     this.isAccelerating = false;
     var clock = 0;
@@ -56,13 +56,73 @@ RLG.road = function(length, speedLimit, times) {
     this.speedLimit = speedLimit;
     this.signal = new RLG.signal(times.red, times.yellow, times.green);
     this.name = "Road";
+    this._assets = [];
+
+    this.initialize = function(game, context) {
+        // adding first road chunck, 
+        var $this = this;
+        var addRoad = function(assets) {
+            var index = $this._assets.length;
+            var road = game.add.sprite(0, 0, 'assets');
+            $this._assets.push(road);
+
+            road.frameName = $this.name;
+            road.x = game.width / 2 - road.width / 2;
+            road.y = road.height * index;
+        }
+
+        addRoad(this._assets);
+        addRoad(this._assets);
+        addRoad(this._assets);
+        addRoad(this._assets);
+        addRoad(this._assets);
+        var roadHalfWidth = this._assets[0].width / 2;
+        var sign = game.add.sprite(game.width / 2 + roadHalfWidth + 30, game.height / 3, 'assets');
+        sign.frameName = "LimitSign";
+        sign.scale.x = 2;
+        sign.scale.y = 2;
+        this._assets.push(sign);
+        var style = {font: "42px Arial", fill: "#404040", align: "center"};
+        var text = game.add.text(sign.x + sign.width / 2, sign.y + sign.height / 2 + 65, this.speedLimit, style);
+        text.anchor.set(0.52, 0.5);
+        text.scale.x = 2, text.scale.y = 2;
+    }
 }
 
 // game mechanics
 RLG.mechanics = {
     cars: [],
     roads: [],
+    
+    _aci: 0,    // active car index
+    _ari: 0,    // active road index
+    
+    chooseCar: function(index) {
+        
+        this._aci = index < 0 || index >= this.cars.length ? 0 : index;
+        
+        if(index < 0 || index >= this.cars.length) {
+            console.error("RLG index out of range exception <RLG.mechancs.chooseCar>");
+        }
+    },
+    
+    activeCar: function(){
+        return this.cars[this._aci];
+    },
+    
+    chooseRoad: function(index) {
 
+        this._ari = index < 0 || index >= this.roads.length ? 0 : index;
+        
+        if(index < 0 || index >= this.roads.length) {
+            console.error("RLG index out of range exception <RLG.mechancs.chooseCar>");
+        }
+    },
+    
+    activeRoad: function(){
+        return this.roads[this._ari];
+    },
+    
     defintionFiles: {
         cars: "Content/Definitions/CarTypes.json",
         roads: "Content/Definitions/RoadLevels.json"
@@ -76,21 +136,23 @@ RLG.mechanics = {
 
     initialize: function(game, context) {
         this.initializeTouch(game, context);
-        var JSON = game.cache.getJSON('cars');
+        this.initialize_JSONFiles(game);
+        this.activeRoad().initialize(game);
+    },
 
+    initialize_JSONFiles: function(game){
+        var JSON = game.cache.getJSON('cars');
+        var temp = null;
         for(var c = 0; c < JSON.Cars.length; ++c) {
-            var temp = JSON.Cars[c];
+            temp = JSON.Cars[c];
             this.cars.push(new RLG.car(temp.name, temp.topSpeed, temp.acceleration));
         }
 
         JSON = game.cache.getJSON('roads');
         for(var c = 0; c < JSON.Roads.length; ++c) {
-            var temp = JSON.Roads[c];
+            temp = JSON.Roads[c]
             this.roads.push(new RLG.road(temp.length, temp.speedLimit, temp.times));
         }
-
-        var test = game.add.sprite(64, 64, 'assets');
-        test.frameName = this.roads[0].name;
     },
 
     initializeTouch: function(game, context) {
@@ -98,7 +160,6 @@ RLG.mechanics = {
     },
 
     onDown: function(pointer) {
-        debugger;
     },
 
     onUp: function(pointer) {
