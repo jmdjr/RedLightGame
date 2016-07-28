@@ -2,15 +2,27 @@
     "frames": [
         {
             "filename": "RedCar",
-            "frame": {"x": 0, "y": 0, "w":115, "h":240 }
+            "frame": { "x": 0, "y": 0, "w":115, "h":240 }
         },
         {
             "filename": "Road",
-            "frame": {"x": 230, "y": 0, "w":230, "h":480 }
+            "frame": { "x": 230, "y": 0, "w":230, "h":480 }
         },
         {
             "filename": "LimitSign",
-            "frame": {"x": 817, "y": 42, "w":94, "h":124 }
+            "frame": { "x": 817, "y": 42, "w":94, "h":124 }
+        },
+        {
+            "filename": "Light_Green",
+            "frame": { "x": 461, "y": 0, "w": 114, "h": 241 }
+        },
+        {
+            "filename": "Light_Yellow",
+            "frame": { "x": 576, "y": 0, "w": 114, "h": 241 }
+        },
+        {
+            "filename": "Light_Red",
+            "frame": { "x": 691, "y": 0, "w": 114, "h": 241 }
         }
     ]
 }

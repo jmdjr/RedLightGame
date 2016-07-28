@@ -37,17 +37,20 @@ RLG.car = function(name, topSpeed, acceleration) {
 
 
 RLG.signal = function(redTime, yellowTime, greenTime) {
-    this.currentSignal = "green";
+    
+    this.signalAsset = null;
+
+    this.activeSignal = "green";
 
     this.signalTimes = {
         red: redTime,      // time red stays active
         yellow: yellowTime,   // time yellow stays active
         green: greenTime    // time green stays active
     }
-    var clock = 0;
 
-    this.activateSignal = function(time) {
-        clock += time;
+    // plays the specific color of the signal.
+    this.switchToColor = function(signalColor) {
+        this.signalAsset.play(signalColor);
     }
 }
 
@@ -76,16 +79,30 @@ RLG.road = function(length, speedLimit, times) {
         addRoad(this._assets);
         addRoad(this._assets);
         addRoad(this._assets);
+        
         var roadHalfWidth = this._assets[0].width / 2;
+        
         var sign = game.add.sprite(game.width / 2 + roadHalfWidth + 30, game.height / 3, 'assets');
         sign.frameName = "LimitSign";
         sign.scale.x = 2;
         sign.scale.y = 2;
+
         this._assets.push(sign);
         var style = {font: "42px Arial", fill: "#404040", align: "center"};
         var text = game.add.text(sign.x + sign.width / 2, sign.y + sign.height / 2 + 65, this.speedLimit, style);
         text.anchor.set(0.52, 0.5);
         text.scale.x = 2, text.scale.y = 2;
+
+        var light = game.add.sprite(game.width / 2 + roadHalfWidth + 30, game.height / 3, 'assets');
+        light.frameName = 'Light_Green';
+        light.scale.x = 2;
+        light.scale.y = 2;
+        light.y = light.y - light.height - 100;
+
+        light.animations.add('red', ['Light_Red'], 10, true);
+        light.animations.add('yellow', ['Light_Yellow'], 10, true);
+        light.animations.add('green', ['Light_Green'], 10, true);
+        this.signal.signalAsset = light;
     }
 }
 
@@ -167,7 +184,6 @@ RLG.mechanics = {
     },
     
     update: function(game, context) {
-
     }
 }
 
